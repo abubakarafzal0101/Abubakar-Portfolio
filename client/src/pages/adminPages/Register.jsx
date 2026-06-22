@@ -1,10 +1,16 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { setToken } from "../../redux/slices/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { FiUser, FiMail, FiLock, FiArrowRight } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import {
+  FiUser,
+  FiMail,
+  FiLock,
+  FiArrowRight,
+  FiUserPlus,
+} from "react-icons/fi";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -40,21 +46,26 @@ const Register = () => {
       setLoading(false);
     }
   };
-  const { token } = useSelector((state) => state.user);
 
-  if (token) {
-    return <Navigate to="/admin" />;
-  }
   return (
-    <div className="min-h-screen w-screen bg-slate-50/50 flex flex-col items-center justify-center p-4 selection:bg-slate-900 selection:text-white">
+    <div className="min-h-screen w-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden selection:bg-indigo-500 selection:text-white">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Cyberpunk Grid effect */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b08_1px,transparent_1px),linear-gradient(to_bottom,#1e293b08_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+
       {/* Auth Card Container */}
-      <div className="w-full max-w-[440px] bg-white border border-slate-200/80 rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300">
+      <div className="w-full max-w-[440px] bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-300 z-10">
         {/* Header Block */}
         <div className="flex flex-col mb-8">
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+          <div className="h-9 w-9 mb-4 flex items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+            <FiUserPlus className="h-5 w-5" />
+          </div>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-100">
             Create an account
           </h2>
-          <p className="text-sm text-slate-500 mt-1.5">
+          <p className="text-sm text-slate-400 mt-1.5">
             Enter your details below to get started with your admin panel.
           </p>
         </div>
@@ -63,54 +74,54 @@ const Register = () => {
         <form onSubmit={registerUserHandler} className="space-y-5">
           {/* Full Name Input Field */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-slate-600 tracking-wide uppercase">
+            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
               Full Name
             </label>
             <div className="relative flex items-center">
-              <FiUser className="absolute left-3.5 text-slate-400 h-4 w-4 pointer-events-none" />
+              <FiUser className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
               <input
                 type="text"
                 required
                 placeholder="John Doe"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm placeholder:text-slate-400 text-slate-800 transition-all duration-200 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-900/5"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
               />
             </div>
           </div>
 
           {/* Email Input Field */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-slate-600 tracking-wide uppercase">
+            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
               Email Address
             </label>
             <div className="relative flex items-center">
-              <FiMail className="absolute left-3.5 text-slate-400 h-4 w-4 pointer-events-none" />
+              <FiMail className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
               <input
                 type="email"
                 required
                 placeholder="name@example.com"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm placeholder:text-slate-400 text-slate-800 transition-all duration-200 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-900/5"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
               />
             </div>
           </div>
 
           {/* Password Input Field */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-slate-600 tracking-wide uppercase">
+            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
               Password
             </label>
             <div className="relative flex items-center">
-              <FiLock className="absolute left-3.5 text-slate-400 h-4 w-4 pointer-events-none" />
+              <FiLock className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
               <input
                 type="password"
                 required
                 placeholder="••••••••"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm placeholder:text-slate-400 text-slate-800 transition-all duration-200 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-900/5"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
               />
             </div>
           </div>
@@ -119,7 +130,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-800/80 disabled:cursor-not-allowed text-white text-sm font-medium h-11 rounded-xl transition-all duration-200 cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20"
+            className="w-full mt-2 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:text-indigo-200/50 disabled:cursor-not-allowed text-white text-sm font-medium h-11 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-indigo-500/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
           >
             {loading ? (
               <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -133,12 +144,12 @@ const Register = () => {
         </form>
 
         {/* Footer Navigation */}
-        <div className="mt-6 text-center">
-          <p className="text-xs text-slate-500">
+        <div className="mt-6 text-center border-t border-slate-800/60 pt-5">
+          <p className="text-xs text-slate-400">
             Already have an account?{" "}
             <Link
               to="/admin/login"
-              className="font-medium text-slate-900 hover:underline underline-offset-4 transition-all"
+              className="font-medium text-indigo-400 hover:text-indigo-300 hover:underline underline-offset-4 transition-all"
             >
               Sign In
             </Link>
