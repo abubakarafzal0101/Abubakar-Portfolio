@@ -63,26 +63,30 @@ export const updateProfile = async (req, res) => {
       }
     }
 
-    await UserModel.findByIdAndUpdate(userId, {
-      name,
-      phone,
-      watsappNumber,
-      address,
-      city,
-      state,
-      country,
-      title,
-      intro,
-      description,
-      github,
-      linkedin,
-      instagram,
-      facebook,
-      twitter,
-      youtube,
-      profilePic,
-      isAvailable,
-    }. {new:true , runvalidators: true});
+    await UserModel.findByIdAndUpdate(
+      userId,
+      {
+        name,
+        phone,
+        watsappNumber,
+        address,
+        city,
+        state,
+        country,
+        title,
+        intro,
+        description,
+        github,
+        linkedin,
+        instagram,
+        facebook,
+        twitter,
+        youtube,
+        profilePic,
+        isAvailable,
+      },
+      { new: true, runvalidators: true },
+    );
     return res.status(200).json({ success: true, message: "Profile updated!" });
   } catch (error) {
     console.log(error, "error in update profile");
