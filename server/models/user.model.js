@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   // extra detailes to edit profile
   phone: {
     type: String,
@@ -66,7 +67,6 @@ const userSchema = new mongoose.Schema({
   },
   isAvailable: {
     type: Boolean,
-    default: true,
   },
 });
 
