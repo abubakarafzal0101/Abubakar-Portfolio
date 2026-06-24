@@ -42,17 +42,17 @@ let defaultProfileData = {
   youtube: "",
 };
 
-// Reusable Input Component to keep the code clean
+// Reusable Input Component with Studio-style layout borders
 const InputField = ({ label, icon: Icon, type = "text", ...props }) => (
   <div className="space-y-1.5">
-    <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+    <label className="text-xs font-bold text-[#AAAAAA] tracking-wide uppercase">
       {label}
     </label>
     <div className="relative flex items-center">
-      <Icon className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
+      <Icon className="absolute left-3.5 text-[#AAAAAA] h-4 w-4 pointer-events-none" />
       <input
         type={type}
-        className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+        className="w-full pl-10 pr-4 py-2.5 bg-[#0F0F0F] border border-[#282828] rounded-xl text-sm placeholder:text-[#606060] text-[#F1F1F1] transition-all duration-150 outline-none focus:border-[#3EA6FF]"
         {...props}
       />
     </div>
@@ -162,28 +162,28 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-950 flex justify-center p-4 md:p-8 relative overflow-x-hidden selection:bg-indigo-500 selection:text-white">
-      {/* Ambient background glow */}
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[150px] pointer-events-none" />
+    <div className="min-h-screen w-full bg-[#0F0F0F] flex justify-center p-4 md:p-8 relative overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200">
+      {/* Ambient background glow — Cleaned up for Studio minimalism */}
+      <div className="hidden" />
 
-      {/* Cyberpunk Grid effect */}
-      <div className="fixed inset-0 bg-[linear-gradient(to_right,#1e293b08_1px,transparent_1px),linear-gradient(to_bottom,#1e293b08_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+      {/* Cyberpunk Grid effect — Cleaned up for Studio minimalism */}
+      <div className="hidden" />
 
-      {/* Main Profile Card */}
-      <div className="w-full max-w-5xl bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.3)] z-10 overflow-hidden">
+      {/* Main Profile Card Surface */}
+      <div className="w-full max-w-5xl bg-[#1F1F1F] border border-[#282828] rounded-xl z-10 overflow-hidden">
         {/* Header Section */}
-        <div className="border-b border-slate-800/60 bg-slate-900/50 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="border-b border-[#282828] bg-[#161616]/60 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-6 w-full md:w-auto">
             {/* Profile Picture Upload Area */}
-            <div className="relative group w-24 h-24 md:w-28 md:h-28 rounded-2xl border-2 border-dashed border-slate-700 hover:border-indigo-500 transition-all flex-shrink-0 flex items-center justify-center overflow-hidden bg-slate-950">
+            <div className="relative group w-24 h-24 md:w-28 md:h-28 rounded-2xl border-2 border-dashed border-[#333333] hover:border-[#3EA6FF] transition-all flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#0F0F0F]">
               <img
                 src={previewPic}
                 alt="Profile preview"
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <label className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-all duration-200">
-                <FiUploadCloud className="text-white h-6 w-6 mb-1" />
-                <span className="text-[10px] text-white font-semibold uppercase tracking-wider">
+              <label className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-all duration-150">
+                <FiUploadCloud className="text-[#F1F1F1] h-6 w-6 mb-1" />
+                <span className="text-[10px] text-[#F1F1F1] font-bold uppercase tracking-wider">
                   Upload
                 </span>
                 <input
@@ -196,19 +196,19 @@ const Profile = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100">
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-[#F1F1F1]">
                 {profileData.name || "Your Profile"}
               </h2>
-              <p className="text-sm text-slate-400 mt-1 flex items-center gap-2">
-                <FiActivity className="text-indigo-400" /> Manage your public
+              <p className="text-xs text-[#AAAAAA] mt-1 flex items-center gap-2">
+                <FiActivity className="text-[#3EA6FF]" /> Manage your public
                 presence
               </p>
             </div>
           </div>
 
           {/* Availability Toggle */}
-          <div className="flex items-center bg-slate-950/50 px-4 py-3 rounded-xl border border-slate-800 w-full md:w-auto justify-between md:justify-start">
-            <span className="text-sm font-semibold text-slate-300 mr-4">
+          <div className="flex items-center bg-[#0F0F0F] px-4 py-3 rounded-xl border border-[#282828] w-full md:w-auto justify-between md:justify-start">
+            <span className="text-xs font-bold text-[#AAAAAA] uppercase tracking-wide mr-4">
               Available for Hire
             </span>
             <label className="relative inline-flex items-center cursor-pointer">
@@ -218,7 +218,7 @@ const Profile = () => {
                 checked={isAvailable}
                 onChange={handleCheckboxChange}
               />
-              <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500"></div>
+              <div className="w-11 h-6 bg-[#333333] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[#1F1F1F] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#F1F1F1] after:border-transparent after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#3EA6FF]"></div>
             </label>
           </div>
         </div>
@@ -227,8 +227,8 @@ const Profile = () => {
         <form onSubmit={onSubmitHandler} className="p-6 md:p-8 space-y-10">
           {/* Section 1: Basic Information */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-4 flex items-center gap-2">
-              <FiUser className="text-indigo-500" /> Basic Information
+            <h3 className="text-sm font-bold text-[#F1F1F1] uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FiUser className="text-[#3EA6FF]" /> Basic Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField
@@ -266,12 +266,12 @@ const Profile = () => {
             </div>
           </div>
 
-          <hr className="border-slate-800/60" />
+          <hr className="border-[#282828]" />
 
           {/* Section 2: Location */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-4 flex items-center gap-2">
-              <FiMapPin className="text-indigo-500" /> Location Details
+            <h3 className="text-sm font-bold text-[#F1F1F1] uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FiMapPin className="text-[#3EA6FF]" /> Location Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="lg:col-span-2">
@@ -311,12 +311,12 @@ const Profile = () => {
             </div>
           </div>
 
-          <hr className="border-slate-800/60" />
+          <hr className="border-[#282828]" />
 
           {/* Section 3: About */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-4 flex items-center gap-2">
-              <FiAlignLeft className="text-indigo-500" /> About You
+            <h3 className="text-sm font-bold text-[#F1F1F1] uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FiAlignLeft className="text-[#3EA6FF]" /> About You
             </h3>
             <div className="space-y-6">
               <InputField
@@ -329,30 +329,30 @@ const Profile = () => {
               />
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+                <label className="text-xs font-bold text-[#AAAAAA] tracking-wide uppercase">
                   Full Description
                 </label>
                 <div className="relative">
-                  <FiFileText className="absolute left-3.5 top-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
+                  <FiFileText className="absolute left-3.5 top-3.5 text-[#AAAAAA] h-4 w-4 pointer-events-none" />
                   <textarea
                     name="description"
                     value={profileData.description}
                     onChange={handleChange}
                     placeholder="Tell us more about your experience, skills, and background..."
                     rows="4"
-                    className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 resize-y"
+                    className="w-full pl-10 pr-4 py-3 bg-[#0F0F0F] border border-[#282828] rounded-xl text-sm placeholder:text-[#606060] text-[#F1F1F1] transition-all duration-150 outline-none focus:border-[#3EA6FF] resize-y"
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          <hr className="border-slate-800/60" />
+          <hr className="border-[#282828]" />
 
           {/* Section 4: Social Links */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-4 flex items-center gap-2">
-              <FiGlobe className="text-indigo-500" /> Social Links
+            <h3 className="text-sm font-bold text-[#F1F1F1] uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FiGlobe className="text-[#3EA6FF]" /> Social Links
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <InputField
@@ -407,14 +407,14 @@ const Profile = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="pt-6 flex justify-end">
+          <div className="pt-4 flex justify-end">
             <button
               type="submit"
               disabled={loading}
-              className="w-full md:w-auto px-8 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:text-indigo-200/50 disabled:cursor-not-allowed text-white text-sm font-medium h-12 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-indigo-500/20 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+              className="w-full md:w-auto px-6 flex items-center justify-center gap-2 bg-[#3EA6FF] hover:bg-[#65B8FF] disabled:bg-[#3EA6FF]/20 disabled:text-[#AAAAAA]/50 disabled:cursor-not-allowed text-[#0F0F0F] text-xs font-semibold h-10 rounded-lg transition-colors cursor-pointer focus:outline-none"
             >
               {loading ? (
-                <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="h-4 w-4 border-2 border-[#0F0F0F]/30 border-t-[#0F0F0F] rounded-full animate-spin" />
               ) : (
                 <>
                   <FiSave className="h-4 w-4" />

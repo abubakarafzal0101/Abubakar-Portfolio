@@ -28,27 +28,20 @@ const Sidebar = () => {
   const sidebarVariants = {
     expanded: {
       width: "240px",
-      transition: { duration: 0.3, ease: "easeInOut" },
+      transition: { duration: 0.25, ease: "easeInOut" },
     },
     collapsed: {
-      width: "70px",
-      transition: { duration: 0.3, ease: "easeInOut" },
+      width: "72px",
+      transition: { duration: 0.25, ease: "easeInOut" },
     },
   };
 
-  const navLinkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group relative ${
-      isActive
-        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10"
-        : "text-slate-400 hover:text-slate-100 hover:bg-slate-900"
-    }`;
-
   return (
     <>
-      {/* --- MOBILE TRIGGER BUTTON --- */}
+      {/* --- MOBILE TRIGGER BUTTON (Studio Style FAB) --- */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="md:hidden fixed bottom-6 right-6 z-[99] p-3.5 bg-indigo-600 text-white rounded-full shadow-xl hover:bg-indigo-500 transition-colors focus:outline-none"
+        className="md:hidden fixed bottom-6 right-6 z-[99] h-12 w-12 bg-[#FF0000] text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#E60000] transition-colors focus:outline-none"
       >
         {isMobileOpen ? (
           <FiX className="h-5 w-5" />
@@ -57,25 +50,25 @@ const Sidebar = () => {
         )}
       </button>
 
-      {/* --- MOBILE SIDEBAR DRAWER (AnimatePresence) --- */}
+      {/* --- MOBILE SIDEBAR DRAWER --- */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
-            {/* Backdrop Overlay */}
+            {/* Matte Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileOpen(false)}
-              className="md:hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50"
+              className="md:hidden fixed inset-0 bg-black/50 z-50"
             />
-            {/* Drawer Container */}
+            {/* Drawer */}
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 left-0 bottom-0 w-64 bg-slate-950 border-r border-slate-900 p-4 pt-20 z-50 flex flex-col gap-2"
+              transition={{ type: "tween", duration: 0.25 }}
+              className="md:hidden fixed top-0 left-0 bottom-0 w-64 bg-[#1F1F1F] border-r border-[#333333] p-3 pt-20 z-50 flex flex-col gap-1"
             >
               {menuItems.map((item) => (
                 <NavLink
@@ -83,10 +76,23 @@ const Sidebar = () => {
                   to={item.path}
                   end={item.path === "/admin"}
                   onClick={() => setIsMobileOpen(false)}
-                  className={navLinkClass}
+                  className="no-underline"
                 >
-                  <item.icon className="h-5 w-5 shrink-0" />
-                  <span>{item.name}</span>
+                  {({ isActive }) => (
+                    <div
+                      className={`flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium relative transition-colors duration-200 ${
+                        isActive
+                          ? "bg-[#333333] text-[#F1F1F1]"
+                          : "text-[#AAAAAA] hover:bg-[#282828] hover:text-[#F1F1F1]"
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#FF0000] rounded-r-full" />
+                      )}
+                      <item.icon className="h-5 w-5 shrink-0" />
+                      <span>{item.name}</span>
+                    </div>
+                  )}
                 </NavLink>
               ))}
             </motion.div>
@@ -94,60 +100,87 @@ const Sidebar = () => {
         )}
       </AnimatePresence>
 
-      {/* --- DESKTOP SIDEBAR (Collapsible) --- */}
+      {/* --- DESKTOP SIDEBAR (YouTube Studio Solid Alignment) --- */}
       <motion.div
         animate={isCollapsed ? "collapsed" : "expanded"}
         variants={sidebarVariants}
-        className="hidden md:flex flex-col fixed top-16 left-0 bottom-0 bg-slate-950/40 backdrop-blur-md border-r border-slate-900 p-3 pt-6 z-40 select-none group/sidebar overflow-x-hidden justify-between"
+        // Background matches Studio's canvas structure seamlessly
+        className="hidden md:flex flex-col fixed top-16 left-0 bottom-0 bg-[#0F0F0F] border-r border-[#282828] p-2 pt-3 z-40 select-none overflow-x-hidden justify-between"
       >
-        {/* Navigation Items */}
-        <div className="flex flex-col gap-1.5">
+        {/* Navigation Item Stack */}
+        <div className="flex flex-col gap-1">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               end={item.path === "/admin"}
-              className={navLinkClass}
+              className="no-underline relative group/item"
             >
-              <item.icon className="h-5 w-5 shrink-0" />
-              {!isCollapsed && (
-                <motion.span
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  className="whitespace-nowrap"
+              {({ isActive }) => (
+                <div
+                  className={`flex items-center gap-5 px-4 py-3 rounded-xl text-sm font-medium relative transition-colors duration-150 ${
+                    isActive
+                      ? "text-[#F1F1F1] bg-[#282828]"
+                      : "text-[#AAAAAA] hover:bg-[#1F1F1F] hover:text-[#F1F1F1]"
+                  }`}
                 >
-                  {item.name}
-                </motion.span>
-              )}
+                  {/* Premium Sliding Left Active Marker */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="sidebarActiveIndicator"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-[#FF0000] rounded-r-full"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
 
-              {/* Tooltip for collapsed mode */}
-              {isCollapsed && (
-                <div className="absolute left-14 scale-0 group-hover:scale-100 transition-all rounded bg-slate-900 px-2.5 py-1.5 text-xs font-semibold text-slate-200 shadow-md border border-slate-800 pointer-events-none whitespace-nowrap z-50">
-                  {item.name}
+                  <item.icon className="h-5 w-5 shrink-0" />
+
+                  {!isCollapsed && (
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="whitespace-nowrap tracking-wide text-[13.5px]"
+                    >
+                      {item.name}
+                    </motion.span>
+                  )}
+
+                  {/* Clean Studio Tooltip for Collapsed Mode */}
+                  {isCollapsed && (
+                    <div className="absolute left-16 scale-0 group-hover/item:scale-100 opacity-0 group-hover/item:opacity-100 transition-all duration-150 rounded bg-[#616161] px-2.5 py-1.5 text-xs font-normal text-[#FFFFFF] shadow-xl pointer-events-none whitespace-nowrap z-50">
+                      {item.name}
+                    </div>
+                  )}
                 </div>
               )}
             </NavLink>
           ))}
         </div>
 
-        {/* Collapse Toggle Handle Button at the bottom */}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="w-full flex items-center justify-center p-2.5 text-slate-500 hover:text-slate-200 hover:bg-slate-900 rounded-xl transition-all border border-transparent hover:border-slate-800 focus:outline-none"
-        >
-          {isCollapsed ? (
-            <FiChevronRight className="h-5 w-5" />
-          ) : (
-            <FiChevronLeft className="h-5 w-5" />
-          )}
-        </button>
+        {/* Bottom Expand/Collapse Handle Action */}
+        <div className="p-1 border-t border-[#282828]/50 pt-2">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="w-full flex items-center justify-center h-10 text-[#AAAAAA] hover:text-[#F1F1F1] hover:bg-[#1F1F1F] rounded-xl transition-colors cursor-pointer focus:outline-none"
+          >
+            {isCollapsed ? (
+              <FiChevronRight className="h-5 w-5" />
+            ) : (
+              <FiChevronLeft className="h-5 w-5" />
+            )}
+          </button>
+        </div>
       </motion.div>
 
-      {/* Invisible spacer component to push layout offset on Desktop */}
+      {/* Invisible Width Offset Spacer Container to secure Grid stability */}
       <div
-        className={`hidden md:block shrink-0 transition-all duration-300 ${
-          isCollapsed ? "w-[70px]" : "w-[240px]"
+        className={`hidden md:block shrink-0 transition-all duration-250 ease-in-out ${
+          isCollapsed ? "w-[72px]" : "w-[240px]"
         }`}
       />
     </>

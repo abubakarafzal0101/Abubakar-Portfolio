@@ -6,6 +6,7 @@ import useFetchUserData from "../../hooks/useFetchUserData";
 import { Navigate, Outlet } from "react-router-dom";
 import AdminLoader from "../../utils/AdminLoader";
 import Sidebar from "../../components/adminComponents/Sidebar";
+import { motion } from "motion/react";
 
 const Home = () => {
   useFetchUserData();
@@ -25,7 +26,8 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col selection:bg-indigo-500 selection:text-white">
+    // YouTube Studio base deep black canvas (#0F0F0F)
+    <div className="min-h-screen bg-[#0F0F0F] flex flex-col selection:bg-blue-500/30 selection:text-blue-200 antialiased">
       {/* Top Navbar Layer */}
       <Navbar />
 
@@ -35,12 +37,18 @@ const Home = () => {
         <Sidebar />
 
         {/* Dynamic Inner Component Content Layout */}
-        <main className="flex-1 min-w-0 p-4 md:p-8 text-slate-100 bg-slate-950/20">
+        {/* Added subtle motion wrap to softly transition core pages as child paths reload */}
+        <motion.main
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="flex-1 min-w-0 p-5 md:p-8 text-[#F1F1F1] bg-[#0F0F0F]"
+        >
           <Outlet />
-        </main>
+        </motion.main>
       </div>
 
-      {/* Dashboard Footer (Will stay aligned nicely) */}
+      {/* Dashboard Footer */}
       <Footer />
     </div>
   );

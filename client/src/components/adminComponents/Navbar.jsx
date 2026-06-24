@@ -13,17 +13,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 bg-slate-950/40 backdrop-blur-md border-b border-slate-900 px-4 md:px-8 flex items-center justify-between transition-all duration-200">
+    // Solid background with sharp border matching the studio aesthetic
+    <nav className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#1F1F1F] border-b border-[#333333] px-4 md:px-8 flex items-center justify-between transition-all duration-200">
       {/* Left Section: Branding */}
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 shadow-sm shadow-indigo-500/5">
+        {/* Swapped neon-indigo for a clean, professional dark studio accent */}
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/20 text-[#FF0000]">
           <FiLayout className="h-5 w-5" />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-sm tracking-tight text-slate-100">
+          <span className="font-semibold text-sm tracking-tight text-[#F1F1F1]">
             Portfolio
           </span>
-          <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">
+          <span className="text-[11px] font-bold text-[#AAAAAA] uppercase tracking-wider">
             Admin Panel
           </span>
         </div>
@@ -34,7 +36,7 @@ const Navbar = () => {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500/20"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#333333] text-sm font-medium text-[#F1F1F1] hover:text-[#FF4E4E] hover:bg-[#FF4E4E]/10 hover:border-[#FF4E4E]/30 transition-all duration-200 cursor-pointer focus:outline-none"
         >
           <FiLogOut className="h-4 w-4" />
           <span className="hidden sm:inline">Logout</span>

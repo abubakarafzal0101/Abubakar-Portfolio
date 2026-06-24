@@ -4,13 +4,8 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { setToken } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
-import {
-  FiUser,
-  FiMail,
-  FiLock,
-  FiArrowRight,
-  FiUserPlus,
-} from "react-icons/fi";
+import { motion } from "motion/react";
+import { FiUser, FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -47,115 +42,135 @@ const Register = () => {
     }
   };
 
+  // Animation Variants for staggered effect
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  };
+
   return (
-    <div className="min-h-screen w-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden selection:bg-indigo-500 selection:text-white">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Cyberpunk Grid effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b08_1px,transparent_1px),linear-gradient(to_bottom,#1e293b08_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
-
-      {/* Auth Card Container */}
-      <div className="w-full max-w-[440px] bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-300 z-10">
+    // Clean, deep dark background similar to Studio's #0f0f0f
+    <div className="min-h-screen w-screen bg-[#0F0F0F] flex flex-col items-center justify-center p-4 selection:bg-blue-500/30 selection:text-blue-200">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        // Surface color matching Studio cards (#212121 to #282828)
+        className="w-full max-w-[420px] bg-[#1F1F1F] border border-[#333333] rounded-2xl p-8 shadow-2xl"
+      >
         {/* Header Block */}
-        <div className="flex flex-col mb-8">
-          <div className="h-9 w-9 mb-4 flex items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-            <FiUserPlus className="h-5 w-5" />
-          </div>
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-100">
+        <motion.div variants={itemVariants} className="mb-8 text-center">
+          <h2 className="text-2xl font-semibold tracking-tight text-white">
             Create an account
           </h2>
-          <p className="text-sm text-slate-400 mt-1.5">
-            Enter your details below to get started with your admin panel.
+          <p className="text-sm text-[#AAAAAA] mt-2">
+            Set up your admin access to get started.
           </p>
-        </div>
+        </motion.div>
 
         {/* Form Element */}
         <form onSubmit={registerUserHandler} className="space-y-5">
-          {/* Full Name Input Field */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+          {/* Full Name Input */}
+          <motion.div variants={itemVariants} className="space-y-1.5">
+            <label className="text-[13px] font-medium text-[#AAAAAA] ml-1">
               Full Name
             </label>
             <div className="relative flex items-center">
-              <FiUser className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
+              <FiUser className="absolute left-3.5 text-[#717171] h-4 w-4 pointer-events-none" />
               <input
                 type="text"
                 required
-                placeholder="John Doe"
+                placeholder="e.g. John Doe"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#0F0F0F] border border-[#333333] rounded-xl text-sm placeholder:text-[#555555] text-[#F1F1F1] transition-all duration-200 outline-none hover:border-[#444444] focus:border-[#3EA6FF] focus:bg-[#121212]"
               />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Email Input Field */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+          {/* Email Input */}
+          <motion.div variants={itemVariants} className="space-y-1.5">
+            <label className="text-[13px] font-medium text-[#AAAAAA] ml-1">
               Email Address
             </label>
             <div className="relative flex items-center">
-              <FiMail className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
+              <FiMail className="absolute left-3.5 text-[#717171] h-4 w-4 pointer-events-none" />
               <input
                 type="email"
                 required
                 placeholder="name@example.com"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#0F0F0F] border border-[#333333] rounded-xl text-sm placeholder:text-[#555555] text-[#F1F1F1] transition-all duration-200 outline-none hover:border-[#444444] focus:border-[#3EA6FF] focus:bg-[#121212]"
               />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Password Input Field */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+          {/* Password Input */}
+          <motion.div variants={itemVariants} className="space-y-1.5">
+            <label className="text-[13px] font-medium text-[#AAAAAA] ml-1">
               Password
             </label>
             <div className="relative flex items-center">
-              <FiLock className="absolute left-3.5 text-slate-500 h-4 w-4 pointer-events-none" />
+              <FiLock className="absolute left-3.5 text-[#717171] h-4 w-4 pointer-events-none" />
               <input
                 type="password"
                 required
                 placeholder="••••••••"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm placeholder:text-slate-600 text-slate-200 transition-all duration-200 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#0F0F0F] border border-[#333333] rounded-xl text-sm placeholder:text-[#555555] text-[#F1F1F1] transition-all duration-200 outline-none hover:border-[#444444] focus:border-[#3EA6FF] focus:bg-[#121212]"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Action Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full mt-2 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:text-indigo-200/50 disabled:cursor-not-allowed text-white text-sm font-medium h-11 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-indigo-500/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-          >
-            {loading ? (
-              <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <>
-                <span>Register Now</span>
-                <FiArrowRight className="h-4 w-4 text-white/80" />
-              </>
-            )}
-          </button>
+          <motion.div variants={itemVariants} className="pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              // Studio uses a distinctive blue for primary actions
+              className="w-full flex items-center justify-center gap-2 bg-[#3EA6FF] hover:bg-[#65B8FF] text-[#0F0F0F] disabled:bg-[#3EA6FF]/50 disabled:text-[#0F0F0F]/50 disabled:cursor-not-allowed text-sm font-semibold h-11 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#3EA6FF]/40"
+            >
+              {loading ? (
+                <div className="h-4 w-4 border-2 border-[#0F0F0F]/30 border-t-[#0F0F0F] rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span>Create Account</span>
+                  <FiArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </button>
+          </motion.div>
         </form>
 
         {/* Footer Navigation */}
-        <div className="mt-6 text-center border-t border-slate-800/60 pt-5">
-          <p className="text-xs text-slate-400">
+        <motion.div variants={itemVariants} className="mt-8 text-center">
+          <p className="text-[13px] text-[#AAAAAA]">
             Already have an account?{" "}
             <Link
               to="/admin/login"
-              className="font-medium text-indigo-400 hover:text-indigo-300 hover:underline underline-offset-4 transition-all"
+              className="font-semibold text-[#3EA6FF] hover:text-[#65B8FF] transition-colors"
             >
               Sign In
             </Link>
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
