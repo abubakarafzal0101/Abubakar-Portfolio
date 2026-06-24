@@ -42,17 +42,13 @@ export const updateProfile = async (req, res) => {
       youtube,
       isAvailable,
     } = req.body;
-    let user = await UserModel.findById(userId);
+    const user = await UserModel.findById(userId);
     if (!user) {
       return res
         .status(404)
         .json({ success: false, message: "User not found!" });
     }
-    if (isAvailable) {
-      isAvailable = true;
-    } else {
-      isAvailable = false;
-    }
+
     let profilePic;
     profilePic = user.profilePic;
 
@@ -67,33 +63,27 @@ export const updateProfile = async (req, res) => {
       }
     }
 
-    user = await UserModel.findByIdAndUpdate(
-      userId,
-      {
-        name,
-        phone,
-        watsappNumber,
-        address,
-        city,
-        state,
-        country,
-        title,
-        intro,
-        description,
-        github,
-        linkedin,
-        instagram,
-        facebook,
-        twitter,
-        youtube,
-        profilePic,
-        isAvailable,
-      },
-      { runValidators: true, new: true },
-    );
-    return res
-      .status(200)
-      .json({ success: true, message: "Profile updated!", user });
+    await UserModel.findByIdAndUpdate(userId, {
+      name,
+      phone,
+      watsappNumber,
+      address,
+      city,
+      state,
+      country,
+      title,
+      intro,
+      description,
+      github,
+      linkedin,
+      instagram,
+      facebook,
+      twitter,
+      youtube,
+      profilePic,
+      isAvailable,
+    }. {new:true , runvalidators: true});
+    return res.status(200).json({ success: true, message: "Profile updated!" });
   } catch (error) {
     console.log(error, "error in update profile");
     return res
