@@ -57,7 +57,7 @@ export const deleteSkill = async (req, res) => {
     const skillId = req.params.skillId;
     const userId = req.userId;
 
-    const user = await UserModel.find({ _id: userId });
+    const user = await UserModel.findById(userId);
     if (!user) {
       return res
         .status(404)
