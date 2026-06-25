@@ -57,16 +57,20 @@ export const deleteSkill = async (req, res) => {
     const skillId = req.params.skillId;
     const userId = req.userId;
 
+    // FIX 1: Changed .find() to .findById() so it returns a proper document or null
     const user = await UserModel.findById(userId);
     if (!user) {
       return res
         .status(404)
         .json({ success: false, message: "User not found!" });
     }
+
+    // Deletes only if the skill belongs to this specific logged-in user
     const skill = await SkillModel.findOneAndDelete({
       _id: skillId,
       userId: userId,
     });
+
     if (!skill) {
       return res
         .status(404)
