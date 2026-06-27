@@ -8,6 +8,7 @@ import connectDb from "./config/mongodb.js";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import skillRouter from "./routes/skill.routes.js";
+
 const app = express();
 const port = process.env.PORT || 5000;
 // middlewares

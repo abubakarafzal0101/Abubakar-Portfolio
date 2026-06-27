@@ -11,7 +11,7 @@ const skillSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    proficiency: {
+    skillLevel: {
       type: Number,
       required: true,
     },
@@ -23,7 +23,7 @@ const skillSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const SkillModel =
-  mongoose.models.skill || mongoose.model("skill", skillSchema);
+const skillModel =
+  mongoose.models.Skill || mongoose.model("Skill", skillSchema);
 
-export default SkillModel;
+export default skillModel;
