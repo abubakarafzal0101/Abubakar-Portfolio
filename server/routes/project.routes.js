@@ -1,0 +1,11 @@
+import express from "express";
+import isAuth from "../middleware/isAuth.js";
+import upload from "../middleware/multer.js";
+import { addProject } from "../controllers/project.controllers.js";
+const projectRouter = express.Router();
+
+projectRouter.post("/add", isAuth, upload.single("projectImage"), addProject);
+projectRouter.delete("/delete/:projectId", isAuth, addProject);
+projectRouter.get("/get-admin-projects", isAuth, addProject);
+
+export default projectRouter;
