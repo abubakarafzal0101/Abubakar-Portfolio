@@ -7,6 +7,7 @@ const userSlice = createSlice({
     token: localStorage.getItem("token") || null,
     loading: false,
     skills: [],
+    projects: [],
   },
 
   reducers: {
@@ -22,10 +23,13 @@ const userSlice = createSlice({
     setSkills: (state, action) => {
       state.skills = action.payload;
     },
+    setProjects: (state, action) => {
+      state.projects = action.payload;
+    },
   },
 });
 
 export default userSlice.reducer;
 
-export const { setUserData, setToken, setLoading, setSkills } =
+export const { setUserData, setToken, setLoading, setSkills, setProjects } =
   userSlice.actions;
