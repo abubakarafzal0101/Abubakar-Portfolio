@@ -7,6 +7,7 @@ import {
   FiBriefcase,
   FiFolder,
   FiCpu,
+  FiBookOpen,
   FiChevronLeft,
   FiChevronRight,
   FiMenu,
@@ -16,11 +17,11 @@ import {
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
   const menuItems = [
     { name: "Dashboard", path: "/admin", icon: FiGrid },
     { name: "Profile", path: "/admin/profile", icon: FiUser },
     { name: "Experience", path: "/admin/experience", icon: FiBriefcase },
+    { name: "Education", path: "/admin/education", icon: FiBookOpen },
     { name: "Projects", path: "/admin/projects", icon: FiFolder },
     { name: "Skills", path: "/admin/skills", icon: FiCpu },
   ];

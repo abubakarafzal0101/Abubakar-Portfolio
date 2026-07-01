@@ -9,6 +9,7 @@ const userSlice = createSlice({
     skills: [],
     projects: [],
     experiences: [],
+    educations: [],
   },
 
   reducers: {
@@ -30,6 +31,9 @@ const userSlice = createSlice({
     setExperiences: (state, action) => {
       state.experiences = action.payload;
     },
+    setEducations: (state, action) => {
+      state.educations = action.payload;
+    },
   },
 });
 
@@ -42,4 +46,5 @@ export const {
   setSkills,
   setProjects,
   setExperiences,
+  setEducations,
 } = userSlice.actions;

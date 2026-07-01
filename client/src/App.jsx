@@ -8,6 +8,7 @@ import Profile from "./pages/adminPages/Profile";
 import Projects from "./pages/adminPages/Projects";
 import Skills from "./pages/adminPages/Skills";
 import Experience from "./pages/adminPages/Experience";
+import Education from "./pages/adminPages/Education";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="experience" element={<Experience />} />
           <Route path="projects" element={<Projects />} />
           <Route path="skills" element={<Skills />} />
+          <Route path="education" element={<Education />} />
         </Route>
 
         {/* Separate Routes */}
